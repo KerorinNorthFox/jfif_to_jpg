@@ -6,9 +6,7 @@ import click
 
 accessable_path = 'D:\\同期\\vcyo'
 
-@click.command()
-@click.argument('path', nargs=1)
-def main(path):
+def convert(path):
     if not accessable_path in path:
         print("\n>>Cannot access this directory. try other directory path")
         sys.exit()
@@ -35,5 +33,10 @@ def main(path):
 
     print(">>WELL DONE!!")
 
+@click.command()
+@click.argument('path', nargs=1)
+def main(path):
+    convert(path)
+    
 if __name__ == '__main__':
     main()
