@@ -1,14 +1,29 @@
 import dearpygui.dearpygui as dpg
 import os
+import configparser
 import jfif_to_jpg
+
+
+# 初期化
+dpg.create_context()
+# 設定ファイル読み込み
+config = configparser.ConfigParser()
+config.read('config.ini', encoding='utf-8')
+
 
 # コールバック
 def converter(sender, app_data, user_data):
+    base_path = config.get('DEFAULT', 'accessable_path')
+    print(base_path)
+    print(type(base_path))
     path_name = dpg.get_value('path_name')
+    # パスが入力されてない場合
     if path_name == '':
         dpg.set_value(user_data, '!Please enter the path.!')
-    elif not jfif_to_jpg.accessable_path in path_name:
+    # アクセス可能パスじゃない場合
+    elif not base_path in path_name:
         dpg.set_value(user_data, '!>>Cannot access this directory. try other directory path.!')
+    # ディレクトリが存在しない場合
     elif not os.path.exists(path_name):
         dpg.set_value(user_data, '!>>Image file path is different. try again.!')
     else:
@@ -18,8 +33,6 @@ def converter(sender, app_data, user_data):
         except:
             dpg.set_value(user_data, '!Something is wrong. Cannot convert!')
 
-# 初期化
-dpg.create_context()
 
 # メインウィンドウ設定
 with dpg.window(label='main_window', tag='main_window'):
@@ -30,7 +43,7 @@ with dpg.window(label='main_window', tag='main_window'):
     dpg.add_text(tag='result_text')
 
 # 後処理
-dpg.create_viewport(title="dear_pygui", width=500, height=250)
+dpg.create_viewport(title="jfif to jpg", width=500, height=250)
 dpg.setup_dearpygui()
 dpg.show_viewport()
 dpg.set_primary_window('main_window', True)
