@@ -6,7 +6,7 @@ import click
 
 accessable_path = 'D:\\同期\\vcyo'
 
-def convert(path):
+def window(path):
     if not accessable_path in path:
         print("\n>>Cannot access this directory. try other directory path")
         sys.exit()
@@ -14,6 +14,11 @@ def convert(path):
         print("\n>>Image file path is different. try again")
         sys.exit()
 
+    convert(path)
+
+    print(">>WELL DONE!!")
+
+def convert(path):
     if path[-1] == '\\':
         path = path[:-1]
 
@@ -30,13 +35,12 @@ def convert(path):
 
         shutil.copyfile(file, to_path)
         os.remove(file)
-
-    print(">>WELL DONE!!")
+    
 
 @click.command()
 @click.argument('path', nargs=1)
 def main(path):
-    convert(path)
+    window(path)
     
 if __name__ == '__main__':
     main()

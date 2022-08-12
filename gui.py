@@ -14,8 +14,6 @@ config.read('config.ini', encoding='utf-8')
 # コールバック
 def converter(sender, app_data, user_data):
     base_path = config.get('DEFAULT', 'accessable_path')
-    print(base_path)
-    print(type(base_path))
     path_name = dpg.get_value('path_name')
     # パスが入力されてない場合
     if path_name == '':
