@@ -14,9 +14,11 @@ def window(path):
         print("\n>>Image file path is different. try again")
         sys.exit()
 
-    convert(path)
-
-    print(">>WELL DONE!!")
+    success = convert(path)
+    if not success:
+        print(">>There are no jfif image files.")
+    else:
+        print(">>WELL DONE!!")
 
 def convert(path):
     if path[-1] == '\\':
@@ -25,6 +27,9 @@ def convert(path):
     jfif_images = []
     jfif_images = glob.glob(path + '\\*jfif')
     print(jfif_images)
+
+    if jfif_images == []:
+        return False
 
     for file in jfif_images:
         dirname = os.path.dirname(file) # ディレクトリ名
@@ -35,6 +40,8 @@ def convert(path):
 
         shutil.copyfile(file, to_path)
         os.remove(file)
+    
+    return True
     
 
 @click.command()

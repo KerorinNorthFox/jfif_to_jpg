@@ -26,8 +26,11 @@ def converter(sender, app_data, user_data):
         dpg.set_value(user_data, '!>>Image file path is different. try again.!')
     else:
         try:
-            jfif_to_jpg.convert(path_name)
-            dpg.set_value(user_data, '>>WELL DONE')
+            success = jfif_to_jpg.convert(path_name)
+            if not success:
+                dpg.set_value(user_data, '>>There are no jfif image files.')
+            else:
+                dpg.set_value(user_data, '>>WELL DONE')
         except:
             dpg.set_value(user_data, '!Something is wrong. Cannot convert!')
 
