@@ -15,7 +15,8 @@ config.read('config.ini', encoding='utf-8')
 def converter(sender, app_data, user_data):
     base_path = config.get('DEFAULT', 'accessable_path')
     path_name = dpg.get_value('path_name')
-    ext_from = dpg.get_value('')
+    ext_from = dpg.get_value('ext_from_name')
+    ext_to = dpg.get_value('ext_to_name')
     # パスが入力されてない場合
     if path_name == '':
         dpg.set_value(user_data, '!Please enter the path.!')
@@ -25,11 +26,14 @@ def converter(sender, app_data, user_data):
     # ディレクトリが存在しない場合
     elif not os.path.exists(path_name):
         dpg.set_value(user_data, '!>>Image file path is different. try again.!')
+    # 拡張子が間違っている場合
+    elif ext_from or ext_to:
+        dpg.set_value(user_data, '!File extention is different.!')
     else:
         try:
-            success = jfif_to_jpg.convert(path_name)
+            success = jfif_to_jpg.convert(path_name, ext_from , ext_to)
             if not success:
-                dpg.set_value(user_data, '>>There are no jfif image files.')
+                dpg.set_value(user_data, f'>>There are no {ext_from} image files.')
             else:
                 dpg.set_value(user_data, '>>WELL DONE')
         except:
@@ -39,7 +43,7 @@ def converter(sender, app_data, user_data):
 # メインウィンドウ設定
 with dpg.window(label='main_window', tag='main_window'):
     # path
-    dpg.add_text(">>Input path that the jfif file you wanna convert exists.")
+    dpg.add_text(">>Input path that the file you wanna convert exists.")
     dpg.add_input_text(label='Path', tag='path_name', width=400)
     # ext_from
     dpg.add_text(">>Input from-ext")
@@ -52,7 +56,7 @@ with dpg.window(label='main_window', tag='main_window'):
     dpg.add_text(tag='result_text')
 
 # 後処理
-dpg.create_viewport(title="jfif to jpg", width=500, height=250)
+dpg.create_viewport(title="multi image converter", width=500, height=250)
 dpg.setup_dearpygui()
 dpg.show_viewport()
 dpg.set_primary_window('main_window', True)
