@@ -16,7 +16,7 @@ def window(path):
 
     success = convert(path)
     if not success:
-        print(">>There are no jfif image files.")
+        print(">>There are no png image files.")
     else:
         print(">>WELL DONE!!")
 
@@ -24,14 +24,14 @@ def convert(path):
     if path[-1] == '\\':
         path = path[:-1]
 
-    jfif_images = []
-    jfif_images = glob.glob(path + '\\*jfif')
-    print(jfif_images)
+    png_images = []
+    png_images = glob.glob(path + '\\*png')
+    print(png_images)
 
-    if jfif_images == []:
+    if png_images == []:
         return False
 
-    for file in jfif_images:
+    for file in png_images:
         dirname = os.path.dirname(file) # ディレクトリ名
         basename_ext = os.path.basename(file) # ファイル名.拡張子
         basename, _ = os.path.splitext(basename_ext) # ファイル名, .拡張子
