@@ -15,6 +15,7 @@ config.read('config.ini', encoding='utf-8')
 def converter(sender, app_data, user_data):
     base_path = config.get('DEFAULT', 'accessable_path')
     path_name = dpg.get_value('path_name')
+    ext_from = dpg.get_value('')
     # パスが入力されてない場合
     if path_name == '':
         dpg.set_value(user_data, '!Please enter the path.!')
@@ -37,8 +38,15 @@ def converter(sender, app_data, user_data):
 
 # メインウィンドウ設定
 with dpg.window(label='main_window', tag='main_window'):
+    # path
     dpg.add_text(">>Input path that the jfif file you wanna convert exists.")
     dpg.add_input_text(label='Path', tag='path_name', width=400)
+    # ext_from
+    dpg.add_text(">>Input from-ext")
+    dpg.add_input_text(label='Ext_from', tag='ext_from_name', width=100)
+    # ext_to
+    dpg.add_text(">>Input to-ext")
+    dpg.add_input_text(label='Ext_to', tag='ext_to_text', width=100)
     dpg.add_button(label='Convert' ,callback=converter, user_data='result_text')
     dpg.add_separator()
     dpg.add_text(tag='result_text')
