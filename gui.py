@@ -22,12 +22,14 @@ def converter(sender, app_data, user_data):
     ext_from = dpg.get_value('ext_from_name')
     ext_to = dpg.get_value('ext_to_name')
     # 拡張子が間違っている場合
-    if not ext in ext_from or not ext in ext_to:
+    if (('jpg' == ext_from or 'png' == ext_from or 'jfif' == ext_from) and ('jpg' == ext_to or
+        'png' == ext_to or 'jfif' == ext_to)):
+        print('a')
+        flag = True
+    else:
         dpg.set_value(user_data, '!Extention is different.!')
         flag = False
-    else:
-        flag = True
-    if flag == True:
+    if flag:
         # パスが入力されてない場合
         if path_name == '':
             dpg.set_value(user_data, '!Please enter the path.!')
