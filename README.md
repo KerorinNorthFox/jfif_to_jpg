@@ -1,0 +1,3 @@
+# jfif_to_jpg
+jfifファイルをjpgファイルに変換
+twitterからダウンロードした画像を一括変換する
