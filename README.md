@@ -10,7 +10,7 @@ Converts jfif images to jpg. Useful for fixing images downloaded from Twitter.
 
 ### GUI:
 
-Run gui.py, paste folder path that contains jfif files into it and click `Convert`. Your files will be converted instantly. No output is visible at the moment, but the Convert button does work correctly.
+Run `gui.py`, paste a folder path that contains jfif files into it and click `Convert`. Your files will be converted instantly. No output is visible at the moment, but the Convert button does work correctly.
 
 
 
