@@ -11,7 +11,7 @@ config.read('config.ini', encoding='utf-8')
 
 
 # コールバック
-def converter(user_data):  # TODO: These don't show up for me. But the converting works anyway.
+def converter(sender, app_data, user_data):  # TODO: These don't show up for me. But the converting works anyway.
     base_path = config.get('DEFAULT', 'accessible_path')
     path_name = dpg.get_value('path_name')
     # パスが入力されてない場合
